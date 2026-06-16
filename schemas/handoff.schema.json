@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skillpp.ai/schemas/handoff.schema.json",
+  "title": "Skill Handoff Schema",
+  "description": "Standardized data interchange between skills in the Skill++ pipeline.",
+  "type": "object",
+  "required": ["_meta", "input"],
+  "properties": {
+    "_meta": {
+      "type": "object",
+      "required": ["pipeline", "step", "timestamp", "source"],
+      "properties": {
+        "pipeline": { "type": "string", "description": "Pipeline ID (e.g. P_TOKEN_ANALYSIS)" },
+        "step": { "type": "integer", "description": "Current step number in the pipeline" },
+        "timestamp": { "type": "integer", "description": "Unix timestamp of handoff creation" },
+        "source": { "type": "string", "description": "Skill name that produced this data" },
+        "chain": { "type": "string", "description": "Chain name (BSC/Ethereum/Base/Solana)" },
+        "chainId": { "type": "string", "description": "Chain ID (56/1/8453/CT_501)" },
+        "confidence": {
+          "type": "string",
+          "enum": ["HIGH", "MEDIUM", "LOW", "UNKNOWN"],
+          "description": "Confidence level of the data"
+        },
+        "needsVerification": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Fields that should be cross-verified by another skill"
+        },
+        "verifiedBy": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Skills that have verified this data"
+        }
+      }
+    },
+    "input": {
+      "type": "object",
+      "required": ["raw", "type"],
+      "properties": {
+        "raw": { "type": "string", "description": "Original user input" },
+        "type": {
+          "type": "string",
+          "enum": ["explorer_url", "address", "token_symbol", "source_code", "intent"],
+          "description": "Classification of user input"
+        },
+        "chainId": { "type": "string" },
+        "contractAddress": { "type": "string" },
+        "walletAddress": { "type": "string" }
+      }
+    },
+    "token": { "$ref": "token.schema.json" },
+    "audit": { "$ref": "audit.schema.json" },
+    "market": {
+      "type": "object",
+      "properties": {
+        "smartMoneySignals": { "type": "array" },
+        "rankings": { "type": "array" },
+        "socialTopics": { "type": "array" }
+      }
+    },
+    "wallet": {
+      "type": "object",
+      "properties": {
+        "address": { "type": "string" },
+        "positions": { "type": "array" },
+        "healthScore": { "type": "number" }
+      }
+    },
+    "nextActions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["action", "pipeline"],
+        "properties": {
+          "action": { "type": "string", "description": "Recommended next action" },
+          "pipeline": { "type": "string", "description": "Pipeline ID to execute" },
+          "reason": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+# Secrets and sensitive files
+.env
+.env.local
+*.key
+*.pem
+*.p12
+*.pfx
+mnemonic.txt
+seed.txt
+private_key*
+secret_key*
+
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Operating system
+.DS_Store
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Build artifacts
+dist/
+build/
+*.log
+*.tsbuildinfo
+*.tgz
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+.cache/
+.npm-cache/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Local audit reports
+skills/audit-plus/reports/*.md
+!skills/audit-plus/reports/.gitkeep
+
+# Local source directories
+/skill-plus-plus/
+/binance-skills-hub/
+/four-meme-ai/
+/four-meme-integration/
+/four-guard/
+/audit-plus/

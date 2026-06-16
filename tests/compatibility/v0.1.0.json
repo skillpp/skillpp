@@ -1,0 +1,117 @@
+{
+  "$schema": "https://skillpp.ai/schemas/skillpp-compatibility-baseline.schema.json",
+  "name": "Skill++ v0.1 compatibility baseline",
+  "major": 0,
+  "package": {
+    "name": "skillpp",
+    "bin": "skillpp",
+    "binPath": "scripts/skillpp.mjs",
+    "requiredFiles": [
+      "README.md",
+      "README.zh-CN.md",
+      "COMPATIBILITY.md",
+      "SKILL.md",
+      "skillpp.manifest.json",
+      "schemas",
+      "scripts",
+      "skills",
+      "adapters",
+      "prompts",
+      "assets",
+      "tests"
+    ]
+  },
+  "manifest": {
+    "protocol": "skill++",
+    "requiredSchemaFiles": [
+      "handoff.schema.json",
+      "token.schema.json",
+      "audit.schema.json",
+      "checkpoint.schema.json"
+    ],
+    "requiredSkills": [
+      { "name": "query-token-info", "group": "binance-web3", "readOnly": true },
+      { "name": "query-token-audit", "group": "binance-web3", "readOnly": true },
+      { "name": "query-address-info", "group": "binance-web3", "readOnly": true },
+      { "name": "trading-signal", "group": "binance-web3", "readOnly": true },
+      { "name": "crypto-market-rank", "group": "binance-web3", "readOnly": true },
+      { "name": "meme-rush", "group": "binance-web3", "readOnly": true },
+      { "name": "binance-agentic-wallet", "group": "binance-web3", "readOnly": false },
+      { "name": "binance-tokenized-securities-info", "group": "binance-web3", "readOnly": true },
+      { "name": "binance", "group": "binance", "readOnly": false },
+      { "name": "fiat", "group": "binance", "readOnly": true },
+      { "name": "p2p", "group": "binance", "readOnly": true },
+      { "name": "payment", "group": "binance", "readOnly": false },
+      { "name": "square-post", "group": "binance", "readOnly": false },
+      { "name": "onchain-pay", "group": "binance", "readOnly": false },
+      { "name": "four-meme-integration", "group": "four-meme", "readOnly": false },
+      { "name": "four-meme-ai", "group": "four-meme", "readOnly": true },
+      { "name": "four-guard", "group": "four-meme", "readOnly": true },
+      { "name": "audit-plus", "group": "audit", "readOnly": true },
+      { "name": "contract-profiler", "group": "skillpp", "readOnly": true },
+      { "name": "risk-fusion", "group": "skillpp", "readOnly": true },
+      { "name": "wallet-doctor", "group": "skillpp", "readOnly": true },
+      { "name": "newbie-tutor", "group": "skillpp", "readOnly": true },
+      { "name": "watchtower", "group": "skillpp", "readOnly": true },
+      { "name": "opportunity-board", "group": "skillpp", "readOnly": true },
+      { "name": "scam-pattern-lab", "group": "skillpp", "readOnly": true }
+    ],
+    "pipelines": [
+      {
+        "id": "P_TOKEN_ANALYSIS",
+        "requiredSkillsInOrder": ["query-token-info", "query-token-audit", "trading-signal", "risk-fusion"],
+        "requiredCheckpoints": ["AUDIT_RESULT"]
+      },
+      {
+        "id": "P_CHAIN_SCAN",
+        "requiredSkillsInOrder": ["meme-rush", "crypto-market-rank", "risk-fusion", "opportunity-board"],
+        "requiredCheckpoints": []
+      },
+      {
+        "id": "P_TRADE_SAFETY",
+        "requiredSkillsInOrder": ["query-token-audit", "audit-plus", "risk-fusion"],
+        "requiredCheckpoints": ["AUDIT_RESULT", "TRADE_CONFIRM"]
+      },
+      {
+        "id": "P_WALLET_XRAY",
+        "requiredSkillsInOrder": ["query-address-info", "query-token-audit", "wallet-doctor"],
+        "requiredCheckpoints": []
+      },
+      {
+        "id": "P_SMART_MONEY",
+        "requiredSkillsInOrder": ["trading-signal", "query-token-audit", "risk-fusion"],
+        "requiredCheckpoints": []
+      },
+      {
+        "id": "P_FOURMEME_CREATE",
+        "requiredSkillsInOrder": ["four-meme-integration"],
+        "requiredCheckpoints": ["SECURITY_NOTICE", "CREATE_CONFIRM"]
+      },
+      {
+        "id": "P_DEEP_AUDIT",
+        "requiredSkillsInOrder": ["query-token-info", "query-token-audit", "contract-profiler", "audit-plus", "risk-fusion"],
+        "requiredCheckpoints": ["AUDIT_REPORT"]
+      }
+    ],
+    "checkpoints": [
+      { "id": "AUDIT_RESULT", "securityLevel": "BLOCKING", "canBypass": false },
+      { "id": "TRADE_CONFIRM", "securityLevel": "BLOCKING", "canBypass": false },
+      { "id": "SECURITY_NOTICE", "securityLevel": "BLOCKING", "canBypass": false },
+      { "id": "CREATE_CONFIRM", "securityLevel": "BLOCKING", "canBypass": false },
+      { "id": "AUDIT_REPORT", "securityLevel": "ADVISORY", "canBypass": true }
+    ]
+  },
+  "cli": {
+    "commands": ["parse", "analyze", "scan", "trade", "audit", "wallet", "signals", "create", "doctor", "skills"],
+    "checkpointExitCode": 10,
+    "routes": [
+      { "command": "analyze", "input": "0x55d398326f99059ff775485246999027b3197955", "pipeline": "P_TOKEN_ANALYSIS" },
+      { "command": "scan", "input": "56", "pipeline": "P_CHAIN_SCAN" },
+      { "command": "trade", "input": "0x55d398326f99059ff775485246999027b3197955", "pipeline": "P_TRADE_SAFETY" },
+      { "command": "audit", "input": "0x55d398326f99059ff775485246999027b3197955", "pipeline": "P_DEEP_AUDIT" },
+      { "command": "wallet", "input": "0x55d398326f99059ff775485246999027b3197955", "pipeline": "P_WALLET_XRAY" },
+      { "command": "signals", "input": "56", "pipeline": "P_SMART_MONEY" },
+      { "command": "create", "input": "create a meme token on four.meme", "pipeline": "P_FOURMEME_CREATE" }
+    ]
+  }
+}

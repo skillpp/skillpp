@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skillpp.ai/schemas/token.schema.json",
+  "title": "Token Info Schema",
+  "description": "Standardized token information produced by query-token-info and consumed by downstream skills.",
+  "type": "object",
+  "required": ["contractAddress", "chainId"],
+  "properties": {
+    "name": { "type": "string" },
+    "symbol": { "type": "string" },
+    "contractAddress": { "type": "string", "pattern": "^0x[a-fA-F0-9]{40}$" },
+    "chainId": { "type": "string", "enum": ["1", "56", "8453", "CT_501"] },
+    "chain": { "type": "string", "enum": ["Ethereum", "BSC", "Base", "Solana"] },
+    "decimals": { "type": "integer" },
+    "totalSupply": { "type": "string" },
+    "icon": { "type": "string", "description": "Token logo URL" },
+    "website": { "type": "string" },
+    "twitter": { "type": "string" },
+    "telegram": { "type": "string" },
+    "creator": { "type": "string" },
+    "creationTx": { "type": "string" },
+    "price": { "type": "string", "description": "Current price in USD" },
+    "priceChange24h": { "type": "string" },
+    "volume24h": { "type": "string" },
+    "marketCap": { "type": "string" },
+    "liquidity": { "type": "string" },
+    "holders": { "type": "string" },
+    "isVerified": { "type": "boolean" },
+    "sourceAvailable": { "type": "boolean", "description": "Whether verified source code is available" },
+    "contractType": {
+      "type": "string",
+      "enum": ["ERC20", "ERC721", "ERC1155", "PROXY", "MULTISIG", "VAULT", "STAKING", "DEX_PAIR", "UNKNOWN"],
+      "description": "Contract type classification"
+    }
+  }
+}

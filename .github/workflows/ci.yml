@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  release-checks:
+    name: Release checks / Node ${{ matrix.node-version }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version:
+          - 18.x
+          - 20.x
+          - 22.x
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Show tool versions
+        run: |
+          node --version
+          npm --version
+
+      - name: Run selftest
+        run: npm test
+
+      - name: Validate Skill++ files
+        run: npm run validate
+
+      - name: Check compatibility contract
+        run: npm run compatibility
+
+      - name: Check npm package contents
+        run: npm pack --dry-run

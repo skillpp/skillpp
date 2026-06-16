@@ -1,0 +1,59 @@
+{
+  "name": "skillpp",
+  "version": "0.1.0",
+  "description": "Skill++ protocol-first AI skill package for on-chain orchestration.",
+  "type": "module",
+  "homepage": "https://skillpp.ai",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skillpp/skillpp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/skillpp/skillpp/issues"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "bin": {
+    "skillpp": "scripts/skillpp.mjs"
+  },
+  "scripts": {
+    "test": "node scripts/selftest.mjs",
+    "validate": "node scripts/validate-skillpp.mjs --strict",
+    "compatibility": "node scripts/compatibility-check.mjs"
+  },
+  "files": [
+    "README.md",
+    "README.zh-CN.md",
+    "COMPATIBILITY.md",
+    "SKILL.md",
+    "registry.md",
+    "pipelines.md",
+    "rules.md",
+    "skillpp.manifest.json",
+    "schemas",
+    "scripts",
+    "assets",
+    "tests",
+    "skills",
+    "adapters",
+    "prompts"
+  ],
+  "keywords": [
+    "skill",
+    "ai-agent",
+    "web3",
+    "binance",
+    "onchain",
+    "crypto",
+    "security-audit",
+    "skillpp",
+    "skill-plus-plus"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "author": "Skill++",
+  "license": "MIT"
+}

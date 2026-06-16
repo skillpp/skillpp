@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skillpp.ai/schemas/checkpoint.schema.json",
+  "title": "Checkpoint Schema",
+  "description": "Defines a mandatory stop point in the pipeline where AI must wait for user confirmation before proceeding. This is the machine-readable enforcement of Skill++'s safety boundaries.",
+  "type": "object",
+  "required": ["checkpointId", "trigger", "requiredAction", "blockUntil"],
+  "properties": {
+    "checkpointId": {
+      "type": "string",
+      "description": "Unique identifier for this checkpoint (e.g. AUDIT_RESULT, TRADE_CONFIRM, CREATE_TOKEN)"
+    },
+    "trigger": {
+      "type": "object",
+      "required": ["condition"],
+      "properties": {
+        "condition": { "type": "string", "description": "When this checkpoint activates" },
+        "riskThreshold": { "type": "number", "description": "Minimum risk score that triggers mandatory block" }
+      }
+    },
+    "requiredAction": {
+      "type": "object",
+      "required": ["display", "waitFor"],
+      "properties": {
+        "display": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Information AI MUST display before proceeding"
+        },
+        "waitFor": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "User responses that satisfy this checkpoint"
+        }
+      }
+    },
+    "blockUntil": {
+      "type": "string",
+      "enum": ["USER_CONFIRMS", "USER_REJECTS", "USER_EXPLICIT_BYPASS", "TIMEOUT"],
+      "description": "What condition releases the checkpoint"
+    },
+    "onReject": {
+      "type": "object",
+      "properties": {
+        "action": { "type": "string", "enum": ["ABORT", "RETRY", "FALLBACK"] },
+        "fallbackPipeline": { "type": "string" }
+      }
+    },
+    "canBypass": {
+      "type": "boolean",
+      "description": "Whether the user can skip this checkpoint. FALSE for write operations.",
+      "default": false
+    },
+    "securityLevel": {
+      "type": "string",
+      "enum": ["ADVISORY", "WARNING", "BLOCKING"],
+      "description": "ADVISORY=inform user but continue; WARNING=strong caution; BLOCKING=hard stop, no bypass"
+    }
+  },
+  "examples": [
+    {
+      "checkpointId": "AUDIT_RESULT",
+      "trigger": { "condition": "audit completed with result", "riskThreshold": 4 },
+      "requiredAction": {
+        "display": ["risk score", "all findings with isHit=true", "disclaimer"],
+        "waitFor": ["继续", "放弃", "深入分析"]
+      },
+      "blockUntil": "USER_CONFIRMS",
+      "onReject": { "action": "ABORT" },
+      "canBypass": false,
+      "securityLevel": "BLOCKING"
+    },
+    {
+      "checkpointId": "TRADE_CONFIRM",
+      "trigger": { "condition": "before any write/send/swap transaction" },
+      "requiredAction": {
+        "display": ["token info", "amount", "estimated cost", "audit result"],
+        "waitFor": ["确认交易", "CONFIRM", "execute"]
+      },
+      "blockUntil": "USER_CONFIRMS",
+      "onReject": { "action": "ABORT" },
+      "canBypass": false,
+      "securityLevel": "BLOCKING"
+    }
+  ]
+}

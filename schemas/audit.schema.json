@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skillpp.ai/schemas/audit.schema.json",
+  "title": "Audit Result Schema",
+  "description": "Standardized security audit result from query-token-audit or audit-plus.",
+  "type": "object",
+  "required": ["source", "riskScore", "riskLabel"],
+  "properties": {
+    "source": {
+      "type": "string",
+      "enum": ["query-token-audit", "audit-plus", "risk-fusion"],
+      "description": "Which skill produced this audit"
+    },
+    "riskScore": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5,
+      "description": "Overall risk score (0=safest, 5=most dangerous)"
+    },
+    "riskLabel": {
+      "type": "string",
+      "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL", "UNKNOWN"],
+      "description": "Human-readable risk level"
+    },
+    "dimensions": {
+      "type": "object",
+      "description": "Per-dimension breakdown (audit-plus only)",
+      "properties": {
+        "permissionTopology": { "type": "number", "minimum": 0, "maximum": 5 },
+        "purposeAnalysis": { "type": "number", "minimum": 0, "maximum": 5 },
+        "fundSafety": { "type": "number", "minimum": 0, "maximum": 5 },
+        "codeQuality": { "type": "number", "minimum": 0, "maximum": 5 },
+        "upgradeRisk": { "type": "number", "minimum": 0, "maximum": 5 }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["severity", "id", "title", "description"],
+        "properties": {
+          "severity": { "type": "string", "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW", "INFO"] },
+          "id": { "type": "string", "description": "Finding ID (e.g. H-1, M-2)" },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "matchedPattern": { "type": "string", "description": "Matched malicious pattern ID (if any)" },
+          "recommendation": { "type": "string" }
+        }
+      }
+    },
+    "buyTax": { "type": "string", "description": "Buy tax percentage (null if unknown)" },
+    "sellTax": { "type": "string", "description": "Sell tax percentage (null if unknown)" },
+    "isVerified": { "type": "boolean" },
+    "isHoneypot": { "type": "boolean" },
+    "hasBackdoor": { "type": "boolean" },
+    "hasUpgrade": { "type": "boolean" },
+    "ownerIsEOA": { "type": "boolean" },
+    "ownerIsMultisig": { "type": "boolean" },
+    "ownerRenounced": { "type": "boolean" },
+    "lpLocked": { "type": "boolean" },
+    "warnings": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Human-readable warning messages"
+    }
+  }
+}

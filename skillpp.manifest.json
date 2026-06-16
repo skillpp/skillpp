@@ -1,0 +1,714 @@
+{
+  "$schema": "https://skillpp.ai/schemas/skillpp.manifest.schema.json",
+  "protocol": "skill++",
+  "version": "0.1.0",
+  "description": "Machine-readable registry of all skills available to the Skill++ scheduler.",
+  "skills": [
+    {
+      "name": "query-token-info",
+      "group": "binance-web3",
+      "path": "skills/binance-web3/query-token-info/",
+      "entry": "SKILL.md",
+      "execCommand": "node skills/binance-web3/query-token-info/scripts/cli.mjs",
+      "commands": [
+        "search",
+        "meta",
+        "dynamic",
+        "kline"
+      ],
+      "readOnly": true,
+      "needsCheckpoint": false,
+      "needsKey": false,
+      "chains": [
+        "1",
+        "56",
+        "8453",
+        "CT_501"
+      ],
+      "deps": [
+        "node"
+      ],
+      "producesSchema": "token",
+      "inputHint": "keyword or contract address"
+    },
+    {
+      "name": "query-token-audit",
+      "group": "binance-web3",
+      "path": "skills/binance-web3/query-token-audit/",
+      "entry": "SKILL.md",
+      "execCommand": "curl -X POST https://web3.binance.com/bapi/defi/v1/public/wallet-direct/security/token/audit",
+      "commands": [
+        "audit"
+      ],
+      "readOnly": true,
+      "needsCheckpoint": false,
+      "needsKey": false,
+      "chains": [
+        "1",
+        "56",
+        "8453",
+        "CT_501"
+      ],
+      "deps": [
+        "curl"
+      ],
+      "producesSchema": "audit",
+      "inputHint": "chainId + contractAddress"
+    },
+    {
+      "name": "query-address-info",
+      "group": "binance-web3",
+      "path": "skills/binance-web3/query-address-info/",
+      "entry": "SKILL.md",
+      "execCommand": "node skills/binance-web3/query-address-info/scripts/cli.mjs",
+      "commands": [
+        "positions"
+      ],
+      "readOnly": true,
+      "needsCheckpoint": false,
+      "needsKey": false,
+      "chains": [
+        "1",
+        "56",
+        "8453",
+        "CT_501"
+      ],
+      "deps": [
+        "node"
+      ],
+      "producesSchema": "wallet",
+      "inputHint": "wallet address + chainId"
+    },
+    {
+      "name": "trading-signal",
+      "group": "binance-web3",
+      "path": "skills/binance-web3/trading-signal/",
+      "entry": "SKILL.md",
+      "execCommand": "node skills/binance-web3/trading-signal/scripts/cli.mjs",
+      "commands": [
+        "smart-money"
+      ],
+      "readOnly": true,
+      "needsCheckpoint": false,
+      "needsKey": false,
+      "chains": [
+        "56",
+        "CT_501"
+      ],
+      "deps": [
+        "node"
+      ],
+      "inputHint": "chainId"
+    },
+    {
+      "name": "crypto-market-rank",
+      "group": "binance-web3",
+      "path": "skills/binance-web3/crypto-market-rank/",
+      "entry": "SKILL.md",
+      "execCommand": "node skills/binance-web3/crypto-market-rank/scripts/cli.mjs",
+      "commands": [
+        "social-hype",
+        "token-rank",
+        "smart-money-inflow",
+        "meme-rank",
+        "address-pnl-rank"
+      ],
+      "readOnly": true,
+      "needsCheckpoint": false,
+      "needsKey": false,
+      "chains": [
+        "1",
+        "56",
+        "8453",
+        "CT_501"
+      ],
+      "deps": [
+        "node"
+      ],
+      "inputHint": "chainId + rankType"
+    },
+    {
+      "name": "meme-rush",
+      "group": "binance-web3",
+      "path": "skills/binance-web3/meme-rush/",
+      "entry": "SKILL.md",
+      "execCommand": "node skills/binance-web3/meme-rush/scripts/cli.mjs",
+      "commands": [
+        "meme-rush",
+        "topic-rush"
+      ],
+      "readOnly": true,
+      "needsCheckpoint": false,
+      "needsKey": false,
+      "chains": [
+        "56",
+        "CT_501",
+        "8453"
+      ],
+      "deps": [
+        "node"
+      ],
+      "inputHint": "chainId + rankType"
+    },
+    {
+      "name": "binance-agentic-wallet",
+      "group": "binance-web3",
+      "path": "skills/binance-web3/binance-agentic-wallet/",
+      "entry": "SKILL.md",
+      "execCommand": "baw",
+      "commands": [
+        "auth",
+        "wallet",
+        "market-order",
+        "limit-order",
+        "prediction",
+        "x402-payment"
+      ],
+      "readOnly": false,
+      "needsCheckpoint": true,
+      "needsKey": true,
+      "keyEnv": "PRIVATE_KEY",
+      "chains": [
+        "1",
+        "56",
+        "8453",
+        "CT_501"
+      ],
+      "deps": [
+        "@binance/agentic-wallet"
+      ],
+      "installCmd": "npm i -g @binance/agentic-wallet",
+      "inputHint": "varies by operation"
+    },
+    {
+      "name": "binance-tokenized-securities-info",
+      "group": "binance-web3",
+      "path": "skills/binance-web3/binance-tokenized-securities-info/",
+      "entry": "SKILL.md",
+      "execCommand": "curl https://web3.binance.com/bapi/defi/v1/public/wallet-direct/...",
+      "commands": [
+        "list",
+        "meta",
+        "market-status",
+        "asset-status",
+        "dynamic-v2",
+        "kline"
+      ],
+      "readOnly": true,
+      "needsCheckpoint": false,
+      "needsKey": false,
+      "chains": [
+        "1",
+        "56"
+      ],
+      "deps": [
+        "node"
+      ],
+      "inputHint": "ticker or contractAddress"
+    },
+    {
+      "name": "binance",
+      "group": "binance",
+      "path": "skills/binance/binance/",
+      "entry": "SKILL.md",
+      "execCommand": "binance-cli",
+      "commands": [
+        "spot",
+        "futures",
+        "convert",
+        "wallet",
+        "..."
+      ],
+      "readOnly": false,
+      "needsCheckpoint": true,
+      "needsKey": true,
+      "keyEnv": "BINANCE_API_KEY",
+      "chains": [
+        "all-exchange"
+      ],
+      "deps": [
+        "@binance/binance-cli"
+      ],
+      "installCmd": "npm i -g @binance/binance-cli",
+      "inputHint": "varies by operation"
+    },
+    {
+      "name": "fiat",
+      "group": "binance",
+      "path": "skills/binance/fiat/",
+      "entry": "SKILL.md",
+      "execCommand": "curl https://www.binance.com/bapi/fiat/v1/public/fiatpayment/agent/...",
+      "commands": [
+        "get-capabilities",
+        "payment-methods",
+        "quote"
+      ],
+      "readOnly": true,
+      "needsCheckpoint": false,
+      "needsKey": false,
+      "chains": [
+        "fiat"
+      ],
+      "deps": [
+        "curl"
+      ],
+      "inputHint": "country + fiatCurrency"
+    },
+    {
+      "name": "p2p",
+      "group": "binance",
+      "path": "skills/binance/p2p/",
+      "entry": "SKILL.md",
+      "execCommand": "curl ...",
+      "commands": [
+        "search-ads",
+        "order-history",
+        "appeal-status"
+      ],
+      "readOnly": true,
+      "needsCheckpoint": false,
+      "needsKey": false,
+      "chains": [
+        "p2p"
+      ],
+      "deps": [
+        "curl"
+      ],
+      "inputHint": "fiat + asset + tradeType"
+    },
+    {
+      "name": "payment",
+      "group": "binance",
+      "path": "skills/binance/payment/",
+      "entry": "SKILL.md",
+      "execCommand": "python3 skills/binance/payment/payment_skill.py",
+      "commands": [
+        "purchase",
+        "decode_qr",
+        "generate_receive"
+      ],
+      "readOnly": false,
+      "needsCheckpoint": true,
+      "needsKey": false,
+      "chains": [
+        "payment"
+      ],
+      "deps": [
+        "python3"
+      ],
+      "inputHint": "QR code data or payment link"
+    },
+    {
+      "name": "square-post",
+      "group": "binance",
+      "path": "skills/binance/square-post/",
+      "entry": "SKILL.md",
+      "execCommand": "node skills/binance/square-post/scripts/post-text.mjs",
+      "commands": [
+        "post-text",
+        "post-image",
+        "post-article",
+        "post-video"
+      ],
+      "readOnly": false,
+      "needsCheckpoint": true,
+      "needsKey": true,
+      "keyEnv": "BINANCE_SQUARE_OPENAPI_KEY",
+      "chains": [
+        "square"
+      ],
+      "deps": [
+        "node"
+      ],
+      "inputHint": "text content + optional media"
+    },
+    {
+      "name": "onchain-pay",
+      "group": "binance",
+      "path": "skills/binance/onchain-pay/",
+      "entry": "SKILL.md",
+      "execCommand": "curl ...",
+      "commands": [
+        "payment-method-list",
+        "trading-pairs",
+        "estimated-quote",
+        "pre-order"
+      ],
+      "readOnly": false,
+      "needsCheckpoint": true,
+      "needsKey": true,
+      "chains": [
+        "fiat-to-crypto"
+      ],
+      "deps": [
+        "curl"
+      ],
+      "inputHint": "fiatAmount + cryptoCurrency + walletAddress"
+    },
+    {
+      "name": "four-meme-integration",
+      "group": "four-meme",
+      "path": "skills/four-meme/four-meme-integration/",
+      "entry": "SKILL.md",
+      "execCommand": "npx fourmeme",
+      "commands": [
+        "create-instant",
+        "create-api",
+        "create-chain",
+        "buy",
+        "sell",
+        "send",
+        "token-info",
+        "token-list",
+        "token-rankings",
+        "quote-buy",
+        "quote-sell",
+        "events",
+        "tax-info",
+        "8004-register",
+        "8004-balance"
+      ],
+      "readOnly": false,
+      "needsCheckpoint": true,
+      "needsKey": true,
+      "keyEnv": "PRIVATE_KEY",
+      "chains": [
+        "56"
+      ],
+      "deps": [
+        "@four-meme/four-meme-ai"
+      ],
+      "installCmd": "npm i -g @four-meme/four-meme-ai@latest",
+      "securityNotice": true,
+      "inputHint": "varies by operation"
+    },
+    {
+      "name": "four-meme-ai",
+      "group": "four-meme",
+      "path": "skills/four-meme/four-meme-ai/",
+      "entry": "SKILL.md",
+      "execCommand": "read-only documentation",
+      "commands": [
+        "docs"
+      ],
+      "readOnly": true,
+      "needsCheckpoint": false,
+      "needsKey": false,
+      "chains": [
+        "56"
+      ],
+      "deps": [],
+      "inputHint": "documentation query"
+    },
+    {
+      "name": "four-guard",
+      "group": "four-meme",
+      "path": "skills/four-meme/four-guard/",
+      "entry": "SKILL.md",
+      "execCommand": "read-only reference",
+      "commands": [
+        "abi",
+        "contracts",
+        "api-docs"
+      ],
+      "readOnly": true,
+      "needsCheckpoint": false,
+      "needsKey": false,
+      "chains": [
+        "56"
+      ],
+      "deps": [],
+      "inputHint": "reference query"
+    },
+    {
+      "name": "audit-plus",
+      "group": "audit",
+      "path": "skills/audit-plus/",
+      "entry": "SKILL.md",
+      "execCommand": "curl block-explorer-api + AI analysis",
+      "commands": [
+        "analyze",
+        "quick-assess"
+      ],
+      "readOnly": true,
+      "needsCheckpoint": true,
+      "needsKey": false,
+      "chains": [
+        "1",
+        "56",
+        "8453",
+        "137",
+        "43114",
+        "42161",
+        "10"
+      ],
+      "deps": [
+        "curl"
+      ],
+      "producesSchema": "audit",
+      "inputHint": "contract address or source code"
+    },
+    {
+      "name": "contract-profiler",
+      "group": "skillpp",
+      "path": "skills/skillpp/contract-profiler/",
+      "entry": "SKILL.md",
+      "execCommand": "AI analysis of Solidity source",
+      "commands": [
+        "profile"
+      ],
+      "readOnly": true,
+      "needsCheckpoint": false,
+      "needsKey": false,
+      "chains": [
+        "1",
+        "56",
+        "8453",
+        "137",
+        "43114",
+        "42161",
+        "10"
+      ],
+      "deps": [],
+      "inputHint": "solidity source code"
+    },
+    {
+      "name": "risk-fusion",
+      "group": "skillpp",
+      "path": "skills/skillpp/risk-fusion/",
+      "entry": "SKILL.md",
+      "execCommand": "AI aggregation of multiple risk sources",
+      "commands": [
+        "fuse"
+      ],
+      "readOnly": true,
+      "needsCheckpoint": false,
+      "needsKey": false,
+      "chains": [
+        "1",
+        "56",
+        "8453",
+        "137",
+        "43114",
+        "42161",
+        "10"
+      ],
+      "deps": [],
+      "producesSchema": "audit",
+      "inputHint": "multiple audit/market data sources"
+    },
+    {
+      "name": "wallet-doctor",
+      "group": "skillpp",
+      "path": "skills/skillpp/wallet-doctor/",
+      "entry": "SKILL.md",
+      "execCommand": "AI analysis aggregating query-address-info + query-token-audit",
+      "commands": [
+        "diagnose"
+      ],
+      "readOnly": true,
+      "needsCheckpoint": false,
+      "needsKey": false,
+      "chains": [
+        "1",
+        "56",
+        "8453",
+        "CT_501"
+      ],
+      "deps": [],
+      "inputHint": "wallet address + chainId"
+    },
+    {
+      "name": "newbie-tutor",
+      "group": "skillpp",
+      "path": "skills/skillpp/newbie-tutor/",
+      "entry": "SKILL.md",
+      "execCommand": "Context-bound term explanations",
+      "commands": [
+        "explain"
+      ],
+      "readOnly": true,
+      "needsCheckpoint": false,
+      "needsKey": false,
+      "chains": [
+        "all"
+      ],
+      "deps": [],
+      "inputHint": "term or concept to explain (with current context)"
+    },
+    {
+      "name": "watchtower",
+      "group": "skillpp",
+      "path": "skills/skillpp/watchtower/",
+      "entry": "SKILL.md",
+      "execCommand": "AI monitoring via BSCScan/etherscan API polling",
+      "commands": [
+        "watch",
+        "start",
+        "status",
+        "stop"
+      ],
+      "readOnly": true,
+      "needsCheckpoint": false,
+      "needsKey": false,
+      "chains": [
+        "1",
+        "56",
+        "8453"
+      ],
+      "deps": [
+        "curl"
+      ],
+      "inputHint": "contract address + conditions"
+    },
+    {
+      "name": "opportunity-board",
+      "group": "skillpp",
+      "path": "skills/skillpp/opportunity-board/",
+      "entry": "SKILL.md",
+      "execCommand": "AI cross-reference aggregation",
+      "commands": [
+        "board"
+      ],
+      "readOnly": true,
+      "needsCheckpoint": false,
+      "needsKey": false,
+      "chains": [
+        "56",
+        "CT_501",
+        "8453"
+      ],
+      "deps": [],
+      "inputHint": "chainId"
+    },
+    {
+      "name": "scam-pattern-lab",
+      "group": "skillpp",
+      "path": "skills/skillpp/scam-pattern-lab/",
+      "entry": "SKILL.md",
+      "execCommand": "AI pattern matching reference",
+      "commands": [
+        "check"
+      ],
+      "readOnly": true,
+      "needsCheckpoint": false,
+      "needsKey": false,
+      "chains": [
+        "all-evm"
+      ],
+      "deps": [],
+      "inputHint": "pattern id or contract code"
+    }
+  ],
+  "pipelines": [
+    {
+      "id": "P_TOKEN_ANALYSIS",
+      "name": "代币深度分析",
+      "skills": [
+        "query-token-info",
+        "query-token-audit",
+        "trading-signal",
+        "risk-fusion"
+      ],
+      "checkpoints": [
+        "AUDIT_RESULT"
+      ]
+    },
+    {
+      "id": "P_CHAIN_SCAN",
+      "name": "扫链找机会",
+      "skills": [
+        "meme-rush",
+        "crypto-market-rank",
+        "risk-fusion",
+        "opportunity-board"
+      ],
+      "checkpoints": []
+    },
+    {
+      "id": "P_TRADE_SAFETY",
+      "name": "安全交易前置",
+      "skills": [
+        "query-token-audit",
+        "audit-plus",
+        "risk-fusion"
+      ],
+      "checkpoints": [
+        "AUDIT_RESULT",
+        "TRADE_CONFIRM"
+      ]
+    },
+    {
+      "id": "P_WALLET_XRAY",
+      "name": "钱包持仓分析",
+      "skills": [
+        "query-address-info",
+        "query-token-audit",
+        "wallet-doctor"
+      ],
+      "checkpoints": []
+    },
+    {
+      "id": "P_SMART_MONEY",
+      "name": "聪明钱追踪",
+      "skills": [
+        "trading-signal",
+        "query-token-audit",
+        "risk-fusion"
+      ],
+      "checkpoints": []
+    },
+    {
+      "id": "P_FOURMEME_CREATE",
+      "name": "Four.meme 发币",
+      "skills": [
+        "four-meme-integration"
+      ],
+      "checkpoints": [
+        "SECURITY_NOTICE",
+        "CREATE_CONFIRM"
+      ]
+    },
+    {
+      "id": "P_DEEP_AUDIT",
+      "name": "合约深度审计",
+      "skills": [
+        "query-token-info",
+        "query-token-audit",
+        "contract-profiler",
+        "audit-plus",
+        "risk-fusion"
+      ],
+      "checkpoints": [
+        "AUDIT_REPORT"
+      ]
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "AUDIT_RESULT",
+      "securityLevel": "BLOCKING",
+      "canBypass": false
+    },
+    {
+      "id": "TRADE_CONFIRM",
+      "securityLevel": "BLOCKING",
+      "canBypass": false
+    },
+    {
+      "id": "SECURITY_NOTICE",
+      "securityLevel": "BLOCKING",
+      "canBypass": false
+    },
+    {
+      "id": "CREATE_CONFIRM",
+      "securityLevel": "BLOCKING",
+      "canBypass": false
+    },
+    {
+      "id": "AUDIT_REPORT",
+      "securityLevel": "ADVISORY",
+      "canBypass": true
+    }
+  ]
+}
