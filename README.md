@@ -115,6 +115,10 @@ Checkpoint: AUDIT_RESULT
 Handoff: { "_meta": { "pipeline": "P_TOKEN_ANALYSIS" }, "results": { ... } }
 ```
 
+## Demos
+
+- [Raw Contract Audit Demo: BSC LastGodVault](examples/contract-audit-bsc-lastgodvault.raw.md)
+
 ## Privacy-Safe Doctor
 
 `skillpp doctor` is safe to paste into public issues by default. It reports package health without exposing absolute local paths.
