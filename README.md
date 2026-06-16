@@ -118,6 +118,7 @@ Handoff: { "_meta": { "pipeline": "P_TOKEN_ANALYSIS" }, "results": { ... } }
 ## Demos
 
 - [Raw Contract Audit Demo: BSC LastGodVault](examples/contract-audit-bsc-lastgodvault.raw.md)
+- [Raw Chain Scan Demo: BSC](examples/chain-scan-bsc.raw.md)
 
 ## Privacy-Safe Doctor
 
