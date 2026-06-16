@@ -240,6 +240,7 @@ test('public files do not contain local private paths or secrets', () => {
     ...walkTextFiles('scripts'),
     ...walkTextFiles('adapters'),
     ...walkTextFiles('prompts'),
+    ...walkTextFiles('examples'),
     ...walkTextFiles('.github'),
   ];
   const forbidden = [
@@ -312,8 +313,10 @@ test('no duplicate pipeline headings', () => {
 });
 test('npm package exposes expected files', () => {
   const pkg = JSON.parse(read('package.json'));
+  const manifest = JSON.parse(read('skillpp.manifest.json'));
   if (pkg.name !== 'skillpp') throw new Error('package name must be skillpp');
-  if (pkg.version !== '0.1.0') throw new Error('package version must be 0.1.0 for first public npm release');
+  if (!/^0\.1\.\d+$/.test(pkg.version)) throw new Error('package version must stay in the v0.1 compatibility line');
+  if (pkg.version !== manifest.version) throw new Error('package and manifest versions diverged');
   if (pkg.type !== 'module') throw new Error('package type must be module');
   if (pkg.repository?.url !== 'git+https://github.com/skillpp/skillpp.git') throw new Error('missing repository URL');
   if (pkg.homepage !== 'https://skillpp.ai') throw new Error('missing homepage');
@@ -325,7 +328,7 @@ test('npm package exposes expected files', () => {
   if (pkg.scripts?.test !== 'node scripts/selftest.mjs') throw new Error('missing npm test');
   if (pkg.scripts?.validate !== 'node scripts/validate-skillpp.mjs --strict') throw new Error('missing npm validate');
   if (pkg.scripts?.compatibility !== 'node scripts/compatibility-check.mjs') throw new Error('missing npm compatibility');
-  for (const f of ['README.md', 'README.zh-CN.md', 'COMPATIBILITY.md', 'SKILL.md', 'skills', 'adapters', 'prompts', 'schemas', 'scripts', 'assets', 'tests']) {
+  for (const f of ['README.md', 'README.zh-CN.md', 'COMPATIBILITY.md', 'SKILL.md', 'skills', 'adapters', 'prompts', 'schemas', 'examples', 'scripts', 'assets', 'tests']) {
     if (!pkg.files?.includes(f)) throw new Error(`package files missing ${f}`);
   }
 });

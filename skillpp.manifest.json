@@ -1,7 +1,7 @@
 {
   "$schema": "https://skillpp.ai/schemas/skillpp.manifest.schema.json",
   "protocol": "skill++",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Machine-readable registry of all skills available to the Skill++ scheduler.",
   "skills": [
     {
